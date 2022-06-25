@@ -23,13 +23,20 @@ var Blog = mongoose.model("Blog", blogSchema);
 
 
 //RESTFUL ROUTES
-
+// Root Route
 app.get("/", function(req, res){
     res.redirect("/blogs")
 });
-
+//Display all Blogs from Db Route
 app.get("/blogs", function(req, res){
-    res.render("index")
+    Blog.find({}, function(err, blogs){
+        if(err){
+            console.log("ERROR");
+        } else {
+            res.render("index", {blogs: blogs}); 
+        }
+    });
+    
 });
 
 
