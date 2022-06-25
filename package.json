@@ -1,0 +1,27 @@
+{
+  "name": "blogapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/psalmy2595/BlogApp.git"
+  },
+  "author": "Boss Jay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/psalmy2595/BlogApp/issues"
+  },
+  "homepage": "https://github.com/psalmy2595/BlogApp#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.0",
+    "nodemon": "^2.0.18"
+  }
+}
