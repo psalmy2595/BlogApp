@@ -11,7 +11,15 @@ app.set("view engine", "ejs");
 mongoose.connect('mongodb://localhost:27017/BlogApp', {useNewUrlParser: true, useUnifiedTopology: true});
 
 
-
+//Create our schema
+var blogSchema = mongoose.Schema({
+    tittle: String,
+    image: String,
+    body:String,
+    created: {type: Date, default: Date.now}
+});
+//compile campground into a model
+var Blog = mongoose.model("Blog, blogSchema");
 
 
 
