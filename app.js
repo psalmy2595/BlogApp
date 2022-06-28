@@ -7,6 +7,8 @@ const PORT = process.env.PORT || 9000
 //APP CONFIG
 app.use(express.urlencoded({ extended: true}));
 app.set("view engine", "ejs");
+//To serve static files such as images, CSS files, and JavaScript files, use the express.static built-in middleware function in Express.
+app.use(express.static('public'));
 //create db and connect mongodb to app
 mongoose.connect('mongodb://localhost:27017/BlogApp', {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -23,10 +25,12 @@ var Blog = mongoose.model("Blog", blogSchema);
 
 
 //RESTFUL ROUTES
-// Root Route
-app.get("/", function(req, res){
-    res.redirect("/blogs")
+app.get("/", function (req, res){
+    res.redirect("/blogs");
+
 });
+
+
 //Display all Blogs from Db Route
 app.get("/blogs", function(req, res){
     Blog.find({}, function(err, blogs){
@@ -42,5 +46,5 @@ app.get("/blogs", function(req, res){
 
 
 app.listen(PORT, function(){
-    console.log("Yelpcamp By Psalmyjay, SERVER STARTED");
+    console.log("BlogApp By Psalmyjay, SERVER STARTED");
 });
