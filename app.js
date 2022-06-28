@@ -1,4 +1,5 @@
 var bodyParser = require("body-parser");
+var flash = require('flash-express');
 var express = require("express");
 var app = express ();
 var mongoose = require("mongoose");
@@ -7,6 +8,7 @@ const PORT = process.env.PORT || 9000
 //APP CONFIG
 app.use(express.urlencoded({ extended: true}));
 app.set("view engine", "ejs");
+  app.use(flash());
 //To serve static files such as images, CSS files, and JavaScript files, use the express.static built-in middleware function in Express.
 app.use(express.static('public'));
 //create db and connect mongodb to app
@@ -43,7 +45,7 @@ app.get("/blogs/new", function(req, res){
             if(err){
                 res.render("new");
             } else {
-                res.redirect("/blogs")
+                res.redirect("/blogs");
             }
             });
         });
@@ -54,6 +56,8 @@ app.get("/blogs", function(req, res){
         if(err){
             console.log("ERROR");
         } else {
+            res.flash("Blog Write up has been posted.");
+            console.log("Blog Write up has been posted.")
             res.render("index", {blogs: blogs}); 
         }
     });
