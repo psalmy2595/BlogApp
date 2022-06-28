@@ -36,6 +36,17 @@ app.get("/blogs/new", function(req, res){
 });
 
 //CREATE ROUTE
+    app.post("/blogs", function(req, res){
+    //Create blog and Redirect
+    //Blog.create(data,  callback function()))
+        Blog.create(req.body.blog, function(err,newBlog){
+            if(err){
+                res.render("new");
+            } else {
+                res.redirect("/blogs")
+            }
+            });
+        });
 
 //Display all Blogs from Db Route
 app.get("/blogs", function(req, res){
