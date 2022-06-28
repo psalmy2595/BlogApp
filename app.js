@@ -25,11 +25,17 @@ var Blog = mongoose.model("Blog", blogSchema);
 
 
 //RESTFUL ROUTES
-app.get("/", function (req, res){
+// INDEX ROUTE
+app.get("/", function(req, res){
     res.redirect("/blogs");
 
 });
+//NEW ROUTE
+app.get("/blogs/new", function(req, res){
+    res.render("new");
+});
 
+//CREATE ROUTE
 
 //Display all Blogs from Db Route
 app.get("/blogs", function(req, res){
