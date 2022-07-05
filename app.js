@@ -45,6 +45,7 @@ app.get("/blogs/new", function(req, res){
             if(err){
                 res.render("new");
             } else {
+                //redirect to index         
                 res.redirect("/blogs");
             }
             });
@@ -57,11 +58,29 @@ app.get("/blogs", function(req, res){
             console.log("ERROR");
         } else {
             res.flash("Blog Write up has been posted.");
-            console.log("Blog Write up has been posted.")
+            // console.log("Blog Write up has been posted.")
             res.render("index", {blogs: blogs}); 
         }
     });
-    
+
+//Redirect /blog url to index url
+app.get("/blog", function(req, res){
+    res.redirect("/blogs");
+});
+      
+});
+
+//SHOW ROUTE
+app.get("/blogs/:id", function(req, res){
+    Blog.findById("req.params.id", function(err, foundBlog){
+        if(err){
+           res.redirect("/blogs");
+        } else {
+            confirm.log(foundBlog)
+        //   res.render("show", {blog: foundBlog});
+           
+        }
+    });
 });
 
 
