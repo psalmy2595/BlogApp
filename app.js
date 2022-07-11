@@ -17,7 +17,7 @@ mongoose.connect('mongodb://localhost:27017/BlogApp', {useNewUrlParser: true, us
 
 //Mongoose/Model Config
 var blogSchema = mongoose.Schema({
-    tittle: String,
+    title: String,
     image: String,
     body:String,
     created: {type: Date, default: Date.now}
@@ -45,8 +45,7 @@ app.get("/blogs/new", function(req, res){
             if(err){
                 res.render("new");
             } else {
-                //redirect to index 
-                res.flash("Blog Writeup Successfully Posted");   
+                //redirect to index   
                 res.redirect("/blogs");
             }
             });
@@ -82,6 +81,23 @@ app.get("/blogs/:id", function(req, res){
     });
 });
 
+//the forM has to be pre filled with tHE data otherwise we wont be editing rather typing stuff over.
+//1st find the actual blog we wanna edit in the edit route.
+//using the id to find the blog to edit. 
+// the redirect to the edit page then pass data {blog: foundBlog}
+// we got to the edit page usong ejs to output it
+//EDIT ROUTE
+app.get("/blogs/:id/edit", function(req, res){
+   Blog.findById(req.params.id, function(err, foundBlog){
+    if (err){ 
+        res.redirect("/blogs");   
+    } else {
+        res.render("edit", {blog: foundBlog});
+    }
+   });
+    res.render('edit');
+
+});
 
 
 app.listen(PORT, function(){

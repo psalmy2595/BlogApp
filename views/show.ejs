@@ -1,18 +1,20 @@
 <%- include ('./partials/header') -%>
 <div class="ui main text container segment">
-    <div class="ui huge header"><%= blog.tittle %></div>
-    <div class="ui top attached segment">
+    <div class="ui huge header"><%- blog.title %></div>
+    <div class="ui top attached">
         <div class="item">
-            <img clas="ui image centered rounded image"src="<%= blog.image %>" >
-        
-            <div class="content">
-                <span><%= blog.created.toDateString() %></span>
+            <img class="ui centered rounded image"src="<%= blog.image %>" >
+                 <div class="content">
+                 <!-- can install and use moment js library to format the date, how we use the built in js -->
+                    <span><%= blog.created.toDateString() %></span>
+                 </div>
+            <div class="description">
+                <p><%= blog.body %></p>       
+                <!-- this allows you to to use the html tags for description when posting in front page -->
+                 <p><%- blog.body %></p>
             </div>
         </div>
-    </div>
-    
-   
-    <p><%= blog.body %></p>
+    </div>  
 </div>
     
 
