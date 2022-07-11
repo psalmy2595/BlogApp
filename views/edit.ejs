@@ -2,14 +2,12 @@
 
 <h1>EDIT PAGE</h1>
 
-
-
 <div class="ui main text container segment">
-    <div class="ui huge header">Edit <%= blog.title %></div>
+    <div class="ui huge header">Edit : <%= blog.title %></div>
     <form class= "ui form" action="/blogs" method="POST">
         <div class="field">
             <label>Title</label>
-            <input type="text" name="blog[title]" placeholder="tittle">
+            <input type="text" name="blog[title]" placeholder="title">
         </div>
         <div class="field">
             <label>Image</label>

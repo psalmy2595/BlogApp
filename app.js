@@ -86,17 +86,17 @@ app.get("/blogs/:id", function(req, res){
 //using the id to find the blog to edit. 
 // the redirect to the edit page then pass data {blog: foundBlog}
 // we got to the edit page usong ejs to output it
+
 //EDIT ROUTE
 app.get("/blogs/:id/edit", function(req, res){
    Blog.findById(req.params.id, function(err, foundBlog){
-    if (err){ 
-        res.redirect("/blogs");   
-    } else {
-        res.render("edit", {blog: foundBlog});
-    }
+        if (err){ 
+            res.redirect("/blogs");   
+        } else {
+            res.render("edit", {blog: foundBlog});
+        }
    });
-    res.render('edit');
-
+    // res.render('edit');
 });
 
 
