@@ -21,8 +21,9 @@
     "body-parser": "^1.20.0",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "flash-express": "^1.0.4",
+    "method-override": "^3.0.0",
     "mongoose": "^6.4.0",
-    "nodemon": "^2.0.18"
+    "nodemon": "^2.0.18",
+    "save": "^2.5.0"
   }
 }
