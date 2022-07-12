@@ -1,16 +1,19 @@
-var bodyParser = require("body-parser");
-var flash = require('flash-express');
-var express = require("express");
-var app = express ();
-var mongoose = require("mongoose");
+var bodyParser      = require("body-parser"),
+methodOverride      =require("method-override"),
+mongoose            = require("mongoose"),
+express             = require("express"),
+app                 = express ();
+
+
 const PORT = process.env.PORT || 9000
  
 //APP CONFIG
 app.use(express.urlencoded({ extended: true}));
 app.set("view engine", "ejs");
-  app.use(flash());
 //To serve static files such as images, CSS files, and JavaScript files, use the express.static built-in middleware function in Express.
 app.use(express.static('public'));
+//Tell app to use methodOverride and pass the argument you want to use,here mine is _method//MethodOverride here listens to _method as config below by me
+app.use(methodOverride('_method'));
 //create db and connect mongodb to app
 mongoose.connect('mongodb://localhost:27017/BlogApp', {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -96,9 +99,19 @@ app.get("/blogs/:id/edit", function(req, res){
             res.render("edit", {blog: foundBlog});
         }
    });
-    // res.render('edit');
 });
-
+//find by id and update and redirect 
+//UPDATE ROUTE
+app.put("/blogs/:id", function(req, res){
+    // Blog.findByIdAndUpdate(id, newData, Callback function)
+    Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, updatedBlog){
+        if (err){
+            res.redirect("/blogs");
+        } else{
+            res.redirect("/blogs/" + req.params.id);
+        }
+    });
+});
 
 app.listen(PORT, function(){
     console.log("BlogApp By Psalmyjay, SERVER STARTED");

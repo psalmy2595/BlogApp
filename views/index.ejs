@@ -6,7 +6,7 @@
        <br> <h3><%= blog.title %></h3>
         <img class="ui rounded image" src="<%= blog.image %>" >
         <!-- displays time in a readable way instead of the longer version -->
-        <br><span><%= blog.created.toDateString() %></span><br>
+        <br><span><%= blog.created.toDateString() %></span>br
          <!-- it shortens the text in the blog,(Truncated Post) then when you open it shows the full text -->
         <%= blog.body.substring(0, 100) %>...</p>
         <a href="/blogs/<%= blog._id %>">Read More</a>
