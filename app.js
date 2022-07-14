@@ -1,21 +1,24 @@
-var bodyParser      = require("body-parser"),
-methodOverride      =require("method-override"),
+var methodOverride  = require("method-override"),
+expressSanitizer    = require("express-sanitizer"),
 mongoose            = require("mongoose"),
 express             = require("express"),
 app                 = express ();
 
 
 const PORT = process.env.PORT || 9000
- 
-//APP CONFIG
-app.use(express.urlencoded({ extended: true}));
+
+ //create db and connect mongodb to app
+mongoose.connect('mongodb://localhost:27017/BlogApp', {useNewUrlParser: true, useUnifiedTopology: true});
 app.set("view engine", "ejs");
+//
+app.use(express.urlencoded({ extended: true}));
+//to sanitize user input to remove unwanted script and submit pure html// here we tell express to use express-sanitizer//It must 
+app.use(expressSanitizer());
 //To serve static files such as images, CSS files, and JavaScript files, use the express.static built-in middleware function in Express.
 app.use(express.static('public'));
 //Tell app to use methodOverride and pass the argument you want to use,here mine is _method//MethodOverride here listens to _method as config below by me
 app.use(methodOverride('_method'));
-//create db and connect mongodb to app
-mongoose.connect('mongodb://localhost:27017/BlogApp', {useNewUrlParser: true, useUnifiedTopology: true});
+
 
 
 //Mongoose/Model Config
@@ -29,7 +32,7 @@ var blogSchema = mongoose.Schema({
 var Blog = mongoose.model("Blog", blogSchema);
 
 
-//RESTFUL ROUTES
+//RESTFUL ROUTES~
 // INDEX ROUTE
 app.get("/", function(req, res){
     res.redirect("/blogs");
@@ -44,6 +47,10 @@ app.get("/blogs/new", function(req, res){
     app.post("/blogs", function(req, res){
     //Create blog and Redirect
     //Blog.create(data,  callback function()))
+    console.log(req.body);
+    req.body.blog.body = req.sanitize(req.body.blog.body)
+    console.log("==================================");
+    console.log(req.body);
         Blog.create(req.body.blog, function(err,newBlog){
             if(err){
                 res.render("new");
@@ -112,7 +119,8 @@ app.put("/blogs/:id", function(req, res){
         }
     });
 });
-
+//DElete Route
+//FindByIdAndremove
 app.delete("/blogs/:id", function(req, res){
    Blog.findByIdAndDelete(req.params.id, function(err){
   if (err){
